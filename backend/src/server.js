@@ -11,7 +11,10 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://finance-dashboard-dusky-rho-23.vercel.app','https://finance-dashboard-dusky-rho-23.vercel.app/login'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Routes
