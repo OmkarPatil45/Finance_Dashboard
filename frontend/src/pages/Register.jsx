@@ -4,17 +4,19 @@ import api from '../utils/api';
 import { AuthContext } from '../context/AuthContext';
 
 const Register = () => {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ name: '', email: '', password: '' });
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await api.post('/auth/register', form);
       login(res.data.user, res.data.token);
       navigate('/');
     } catch (err) {
+      // 🔥 IMPROVED: Better error logging so you can see real message in console
+      console.error("Registration Error:", err.response?.data || err);
       alert(err.response?.data?.message || 'Registration failed');
     }
   };
