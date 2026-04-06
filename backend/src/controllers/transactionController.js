@@ -2,7 +2,7 @@ const Transaction = require('../models/Transaction');
 
 const getTransactions = async (req, res) => {
   try {
-    const { type, category, startDate, endDate } = req.query;
+    const { type, category, startDate, endDate, page = 1, limit = 10 } = req.query;
 
     let query = {};
 
@@ -14,11 +14,25 @@ const getTransactions = async (req, res) => {
       if (endDate) query.date.$lte = new Date(endDate);
     }
 
+    const skip = (page - 1) * limit;
+
     const transactions = await Transaction.find(query)
       .sort({ date: -1 })
-      .populate('createdBy', 'name role');
+      .skip(skip)
+      .limit(parseInt(limit))
+      .populate('createdBy', 'name');
 
-    res.json(transactions);
+    const total = await Transaction.countDocuments(query);
+
+    res.json({
+      transactions,
+      pagination: {
+        page: parseInt(page),
+        limit: parseInt(limit),
+        total,
+        pages: Math.ceil(total / limit)
+      }
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
