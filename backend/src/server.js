@@ -12,7 +12,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://finance-dashboard-dusky-rho-23.vercel.app','https://finance-dashboard-dusky-rho-23.vercel.app/login'],
+  origin: ['http://localhost:5173', 'https://finance-dashboard-dusky-rho-23.vercel.app'],
   credentials: true
 }));
 app.use(express.json());
