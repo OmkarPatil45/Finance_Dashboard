@@ -24,16 +24,18 @@ const Register = () => {
       <div className="glass max-w-md w-full rounded-3xl p-12">
         <h1 className="text-4xl font-semibold text-center mb-10">Create an account</h1>
         <form onSubmit={handleSubmit} className="space-y-8">
+          <input type="text" placeholder="Name" value={form.name} onChange={e => setForm({...form, name: e.target.value})}
+                 className="w-full bg-transparent border border-black/200 rounded-3xl px-8 py-6 focus:outline-none focus:border-primary" required />
           <input type="email" placeholder="Email" value={form.email} onChange={e => setForm({...form, email: e.target.value})}
-                 className="w-full bg-transparent border border-black/200 rounded-3xl px-8 py-6 focus:outline-none focus:border-primary" />
+                 className="w-full bg-transparent border border-black/200 rounded-3xl px-8 py-6 focus:outline-none focus:border-primary" required />
           <input type="password" placeholder="Password" value={form.password} onChange={e => setForm({...form, password: e.target.value})}
-                 className="w-full bg-transparent border border-black/200 rounded-3xl px-8 py-6 focus:outline-none focus:border-primary" />
+                 className="w-full bg-transparent border border-black/200 rounded-3xl px-8 py-6 focus:outline-none focus:border-primary" required />
           <button type="submit" className="w-full bg-primary text-black-200 font-bold py-6 rounded-3xl text-lg border border-black/200 hover:bg-black/20">
             Register
           </button>
         </form>
         <p className="text-center mt-8 text-black-200">
-          Don't have an account? <Link to="/register" className="text-primary">Register</Link>
+          Already have an account? <Link to="/login" className="text-primary">Login</Link>
         </p>
       </div>
     </div>
